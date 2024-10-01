@@ -590,7 +590,7 @@
             <div class="contact-phone">
               <i class="bi bi-phone"></i>
               <h3>Phone Number</h3>
-              <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
+              <p><a href="tel:+155895548855">+1 954-951-0803</a></p>
             </div>
           </div>
 
@@ -611,7 +611,7 @@
 
       <div class="container">
         <div class="form">
-          <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+          <form id="emailForm">
             <div class="row">
               <div class="form-group col-md-6">
                 <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -627,14 +627,54 @@
               <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
             </div>
 
-            <div class="my-3">
+            <!-- <div class="my-3">
               <div class="loading">Loading</div>
               <div class="error-message"></div>
               <div class="sent-message">Your message has been sent. Thank you!</div>
-            </div>
+            </div> -->
 
-            <div class="text-center"><button type="submit">Send Message</button></div>
+            <div class="text-center">
+              <button type="submit">Send Message</button></div>
+
           </form>
+
+          <!-- <h1>Send Email</h1>
+          <form id="emailForm">
+            <label for="to">To:</label>
+            <input type="email" id="to" name="to" required><br><br>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required><br><br>
+            <label for="text">Message:</label><br>
+            <textarea id="text" name="text" rows="4" cols="50" required></textarea><br><br>
+            <button type="submit">Send Email</button>
+          </form>
+         -->
+          <script>
+            document.getElementById('emailForm').addEventListener('submit', function(event) {
+              event.preventDefault();
+        
+              const to = document.getElementById('email').value;
+              const subject = document.getElementById('subject').value;
+              const text = 'Shashank';
+        
+              fetch('http://localhost:8080/sendEmail', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ to: to, subject: subject, text: text })
+              })
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert('Error sending email');
+              });
+            });
+          </script>
+        
         </div>
 
       </div>
@@ -667,6 +707,9 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  
+
+
 
 </body>
 
